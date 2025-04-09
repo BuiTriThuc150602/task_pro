@@ -12,7 +12,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       password: json['password'] as String,
       email: json['email'] as String?,
       avatarUrl: json['avatarUrl'] as String?,
-      isGuest: json['isGuest'] as bool? ?? false,
+      isGuest: json['isGuest'] == null ? false : _intToBool(json['isGuest']),
     );
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
@@ -22,5 +22,5 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'password': instance.password,
       'email': instance.email,
       'avatarUrl': instance.avatarUrl,
-      'isGuest': instance.isGuest,
+      'isGuest': _boolToInt(instance.isGuest),
     };

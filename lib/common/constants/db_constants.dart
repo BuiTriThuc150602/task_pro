@@ -7,6 +7,7 @@ class DbConstants {
       CREATE TABLE users(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
+        password TEXT NOT NULL,
         email TEXT,
         avatarUrl TEXT,
         isGuest INTEGER DEFAULT 0

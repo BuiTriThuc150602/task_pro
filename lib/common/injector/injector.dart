@@ -37,6 +37,6 @@ Future<void> setupInjector() async {
       () => TaskViewModel(getIt<TaskRepository>()));
   getIt.registerFactory<SubTaskViewModel>(
       () => SubTaskViewModel(getIt<SubTaskRepository>()));
-  getIt.registerFactory<AuthViewModel>(
+  getIt.registerLazySingleton<AuthViewModel>(
       () => AuthViewModel(getIt<UserRepository>()));
 }

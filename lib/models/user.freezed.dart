@@ -25,6 +25,7 @@ mixin _$User {
   String get password => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
   bool get isGuest => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +44,7 @@ abstract class $UserCopyWith<$Res> {
       String password,
       String? email,
       String? avatarUrl,
-      bool isGuest});
+      @JsonKey(fromJson: _intToBool, toJson: _boolToInt) bool isGuest});
 }
 
 /// @nodoc
@@ -108,7 +109,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String password,
       String? email,
       String? avatarUrl,
-      bool isGuest});
+      @JsonKey(fromJson: _intToBool, toJson: _boolToInt) bool isGuest});
 }
 
 /// @nodoc
@@ -166,7 +167,7 @@ class _$UserImpl implements _User {
       required this.password,
       this.email,
       this.avatarUrl,
-      this.isGuest = false});
+      @JsonKey(fromJson: _intToBool, toJson: _boolToInt) this.isGuest = false});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -182,7 +183,7 @@ class _$UserImpl implements _User {
   @override
   final String? avatarUrl;
   @override
-  @JsonKey()
+  @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
   final bool isGuest;
 
   @override
@@ -232,6 +233,7 @@ abstract class _User implements User {
       required final String password,
       final String? email,
       final String? avatarUrl,
+      @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
       final bool isGuest}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
@@ -247,6 +249,7 @@ abstract class _User implements User {
   @override
   String? get avatarUrl;
   @override
+  @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
   bool get isGuest;
   @override
   @JsonKey(ignore: true)

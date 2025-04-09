@@ -9,6 +9,7 @@ import 'package:task_your_life/common/injector/injector.dart';
 import 'package:task_your_life/services/database_service.dart';
 import 'package:task_your_life/view_models/auth_view_model.dart';
 
+late Database database;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -35,6 +36,6 @@ void main() async {
 
 void openDatabase() async {
   final dbService = getIt<DatabaseService>();
-  final db = await dbService.database;
-  print("Database opened: ${db.path}");
+  database = await dbService.database;
+  print("Database opened: ${database.path}");
 }

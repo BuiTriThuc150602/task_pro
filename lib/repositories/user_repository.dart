@@ -21,4 +21,8 @@ class UserRepository implements BaseRepository<User> {
 
   @override
   Future<int> delete(int id) => _userService.delete(id);
+
+  Future<User?> login(String username, String password) async {
+    return await _userService.login(username, password);
+  }
 }

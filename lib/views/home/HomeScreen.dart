@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:task_your_life/common/injector/injector.dart';
+import 'package:task_your_life/view_models/auth_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -10,13 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 1000;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final authViewModel = getIt<AuthViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +30,18 @@ class _HomeScreenState extends State<HomeScreen> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              'Wellcome ${authViewModel.currentUser?.username}',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: () {
+          authViewModel.logout();
+          context.go('/login');
+        },
+        tooltip: 'Logout',
         child: const Icon(Icons.add),
       ),
     );
