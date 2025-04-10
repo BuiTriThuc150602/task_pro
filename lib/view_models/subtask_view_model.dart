@@ -6,18 +6,40 @@ class SubTaskViewModel extends ChangeNotifier {
   final SubTaskRepository _subTaskRepository;
 
   List<SubTask> subTasks = [];
-  bool isLoading = false;
+  bool _isLoading = false;
+  bool _isError = false;
+  String _errorMessage = '';
+
+  bool get isLoading => _isLoading;
+  bool get isError => _isError;
+  String get errorMessage => _errorMessage;
 
   SubTaskViewModel(this._subTaskRepository);
 
   Future<void> fetchSubTasks() async {
-    isLoading = true;
+    _isLoading = true;
+    _isError = false;
+    _errorMessage = '';
     notifyListeners();
 
-    subTasks = await _subTaskRepository.getAll();
-
-    isLoading = false;
-    notifyListeners();
+    await _subTaskRepository.getAll().then((result) {
+      result.fold(
+        (subTasksList) {
+          subTasks = subTasksList;
+          _isLoading = false;
+          _isError = false;
+          _errorMessage = '';
+          notifyListeners();
+        },
+        (error) {
+          _isLoading = false;
+          _isError = true;
+          _errorMessage = error.toString();
+          subTasks = [];
+          notifyListeners();
+        },
+      );
+    });
   }
 
   Future<void> addSubTask(SubTask subTask) async {

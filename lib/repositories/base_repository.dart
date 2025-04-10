@@ -1,7 +1,9 @@
-abstract class BaseRepository<T> {
-  Future<List<T>> getAll();
-  Future<T?> getById(int id);
-  Future<int> insert(T item);
-  Future<int> update(T item, int id);
-  Future<int> delete(int id);
+import 'package:result_dart/result_dart.dart';
+
+abstract class BaseRepository<T extends Object> {
+  Future<Result<List<T>>> getAll();
+  Future<Result<T>> getById(int id);
+  Future<Result<int>> insert(T item);
+  Future<Result<int>> update(T item, int id);
+  Future<Result<int>> delete(int id);
 }

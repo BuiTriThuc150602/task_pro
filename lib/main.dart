@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:task_your_life/app/MyApp.dart';
 import 'package:task_your_life/common/injector/injector.dart';
+import 'package:task_your_life/repositories/user_repository.dart';
 import 'package:task_your_life/services/database_service.dart';
 import 'package:task_your_life/view_models/auth_view_model.dart';
 
@@ -25,8 +26,9 @@ void main() async {
     fallbackLocale: const Locale('vi'),
     child: MultiProvider(
       providers: [
+        Provider<UserRepository>(create: (_) => getIt<UserRepository>()),
         ChangeNotifierProvider<AuthViewModel>(
-          create: (_) => getIt<AuthViewModel>(),
+          create: (context) => getIt<AuthViewModel>(),
         ),
       ],
       child: const MyApp(),

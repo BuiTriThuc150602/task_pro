@@ -1,3 +1,4 @@
+import 'package:result_dart/src/types.dart';
 import 'package:task_your_life/models/sub_task.dart';
 import 'package:task_your_life/services/subtask_service.dart';
 import 'base_repository.dart';
@@ -8,17 +9,18 @@ class SubTaskRepository implements BaseRepository<SubTask> {
   SubTaskRepository(this._subTaskService);
 
   @override
-  Future<List<SubTask>> getAll() => _subTaskService.getAll();
+  Future<Result<List<SubTask>>> getAll() => _subTaskService.getAll();
 
   @override
-  Future<SubTask?> getById(int id) => _subTaskService.getById(id);
+  Future<Result<SubTask>> getById(int id) => _subTaskService.getById(id);
 
   @override
-  Future<int> insert(SubTask item) => _subTaskService.insert(item);
+  Future<Result<int>> insert(SubTask item) => _subTaskService.insert(item);
 
   @override
-  Future<int> update(SubTask item, int id) => _subTaskService.update(item, id);
+  Future<Result<int>> update(SubTask item, int id) =>
+      _subTaskService.update(item, id);
 
   @override
-  Future<int> delete(int id) => _subTaskService.delete(id);
+  Future<Result<int>> delete(int id) => _subTaskService.delete(id);
 }

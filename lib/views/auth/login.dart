@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:task_your_life/view_models/auth_view_model.dart';
 import 'package:task_your_life/widgets/auth/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key, required this.authViewModel});
+
+  final AuthViewModel authViewModel;
 
   @override
   Widget build(BuildContext context) {
     final isLargeScreen = MediaQuery.of(context).size.width >= 600;
-
     return Scaffold(
       body: isLargeScreen
           ? Row(
@@ -24,11 +26,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 // Right form
-                const Expanded(
+                Expanded(
                   child: Center(
                     child: SizedBox(
                       width: 400,
-                      child: LoginForm(),
+                      child: LoginForm(authViewModel: authViewModel),
                     ),
                   ),
                 ),
@@ -49,10 +51,12 @@ class LoginScreen extends StatelessWidget {
                 // Dark overlay
                 Container(color: Colors.black.withOpacity(0.5)),
                 // Center form
-                const Center(
+                Center(
                   child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: LoginForm(),
+                    padding: const EdgeInsets.all(16.0),
+                    child: LoginForm(
+                      authViewModel: authViewModel,
+                    ),
                   ),
                 ),
               ],

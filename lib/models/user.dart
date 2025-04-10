@@ -11,6 +11,7 @@ class User with _$User {
     required String password,
     String? email,
     String? avatarUrl,
+    // ignore: invalid_annotation_target
     @JsonKey(fromJson: _intToBool, toJson: _boolToInt)
     @Default(false)
     bool isGuest,

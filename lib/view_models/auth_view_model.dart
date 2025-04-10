@@ -15,19 +15,22 @@ class AuthViewModel extends ChangeNotifier {
   AuthViewModel(this._userRepository);
 
   Future<bool> login(String username, String password) async {
-    try {
-      _isLoading = true;
-      notifyListeners();
-      final user = await _userRepository.login(username, password);
-      _currentUser = user;
-      _isLoading = false;
-      notifyListeners();
-      return user != null;
-    } catch (e) {
-      print('Login failed: $e');
-      _isLoading = false;
-      notifyListeners();
-    }
+    _isLoading = true;
+    notifyListeners();
+    final user = await _userRepository.login(username, password);
+    user.fold(
+      (user) {
+        _currentUser = user;
+        _isLoading = false;
+        notifyListeners();
+        return user;
+      },
+      (failure) {
+        _isLoading = false;
+        notifyListeners();
+        return null;
+      },
+    );
     return _currentUser != null;
   }
 

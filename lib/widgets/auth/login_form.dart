@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:task_your_life/common/injector/injector.dart';
 import 'package:task_your_life/view_models/auth_view_model.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  const LoginForm({super.key, required this.authViewModel});
+  final AuthViewModel authViewModel;
+
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final authViewModel = getIt<AuthViewModel>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   Future<void> _login() async {
-    final isLogin = await authViewModel.login(
+    final isLogin = await widget.authViewModel.login(
       _usernameController.text.trim(),
       _passwordController.text,
     );
@@ -88,14 +88,14 @@ class _LoginFormState extends State<LoginForm> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: authViewModel.isLoading ? null : _login,
+                onPressed: widget.authViewModel.isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: authViewModel.isLoading
+                child: widget.authViewModel.isLoading
                     ? const CircularProgressIndicator(
                         color: Colors.white,
                       )

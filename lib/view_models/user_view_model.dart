@@ -5,18 +5,37 @@ import 'package:task_your_life/repositories/user_repository.dart';
 class UserViewModel extends ChangeNotifier {
   final UserRepository _userRepository;
 
-  List<User> users = [];
-  bool isLoading = false;
+  List<User> _users = [];
+  bool _isLoading = false;
+  bool _isError = false;
+  String _errorMessage = '';
+  List<User> get users => _users;
+  bool get isLoading => _isLoading;
+  bool get isError => _isError;
+  String get errorMessage => _errorMessage;
 
   UserViewModel(this._userRepository);
 
   Future<void> fetchUsers() async {
-    isLoading = true;
+    _isLoading = true;
     notifyListeners();
 
-    users = await _userRepository.getAll();
+    await _userRepository.getAll().then((result) {
+      result.fold(
+        (usersList) {
+          _users = usersList;
 
-    isLoading = false;
+          _isError = false;
+          _errorMessage = '';
+        },
+        (error) {
+          _isError = true;
+          _errorMessage = error.toString();
+          _users = [];
+        },
+      );
+    });
+    _isLoading = false;
     notifyListeners();
   }
 
